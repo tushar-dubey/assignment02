@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package proto;
+
+// Haberdasher service makes hats for clients.
+service FetchVideos {
+  // MakeHat produces a hat of mysterious, randomly-selected color!
+  rpc Get(GetVideosRequest) returns (GetVideosResponse);
+  rpc Search(SearchVideosRequest) returns (SearchVideosResponse);
+}
+
+// Pagination params for Get request
+message GetVideosRequest {
+  int32 count = 1;
+  int32 skip  = 2;
+}
+
+// Return the links of the videos and name
+message GetVideosResponse {
+  int32 count = 1;
+  int32 skip  = 2;
+}
+
+// Pagination params for Get request
+message SearchVideosRequest {
+  string  query = 1;
+  int32   count = 2;
+  int32   skip  = 3;
+}
+
+// Return the links of the videos and name
+message SearchVideosResponse {
+  int32 count = 1;
+  int32 skip  = 2;
+}

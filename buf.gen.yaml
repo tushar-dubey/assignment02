@@ -1,0 +1,16 @@
+version: v1
+managed:
+  enabled: true
+  go_package_prefix:
+    default: github.com/tushar.dubey/assignment02/rpc
+plugins:
+  # Generate plain old .pb.go files
+  # Not all proto definitions will have a service defined.
+  # We build .pb.go files for those files.
+  - name: go
+    out: rpc/
+    opt: paths=source_relative
+  # generate twirp files for the protobuf files with a service defined.
+  - name: twirp
+    out: rpc/
+    opt: paths=source_relative
