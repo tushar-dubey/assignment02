@@ -1,0 +1,14 @@
+.idea/
+
+mock/
+
+rpc
+
+vendor/*
+
+tmp
+
+*_mock.go
+
+.secrets
+.env

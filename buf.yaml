@@ -1,5 +1,5 @@
 version: v1beta1
-name: buf.build/proto
+name: github.com/tushar-dubey/assignment02
 build:
   roots:
     - ./proto
