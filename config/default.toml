@@ -1,0 +1,13 @@
+mongoAddress = "mongodb://localhost:27017"
+apikeys = [""]
+[app]
+    env             = "deafult"
+    port            = ":8080"
+    shutdowndelay   = 5
+    loglevel        = "info"
+    query           = "football"
+
+[kafka]
+    topic      = "videos"
+    address    = "localhost"
+    port       = "9092"

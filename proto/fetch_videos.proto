@@ -7,6 +7,7 @@ service FetchVideos {
   // MakeHat produces a hat of mysterious, randomly-selected color!
   rpc Get(GetVideosRequest) returns (GetVideosResponse);
   rpc Search(SearchVideosRequest) returns (SearchVideosResponse);
+  rpc CronAPI(CronRequest) returns (CronResponse);
 }
 
 // Pagination params for Get request
@@ -17,19 +18,50 @@ message GetVideosRequest {
 
 // Return the links of the videos and name
 message GetVideosResponse {
-  int32 count = 1;
-  int32 skip  = 2;
+  repeated Video videos = 1;
 }
 
 // Pagination params for Get request
 message SearchVideosRequest {
-  string  query = 1;
-  int32   count = 2;
-  int32   skip  = 3;
+  string    query = 1;
+  int32     count = 2;
+  int32     skip  = 3;
 }
 
 // Return the links of the videos and name
 message SearchVideosResponse {
-  int32 count = 1;
-  int32 skip  = 2;
+  repeated Video videos = 1;
+}
+
+
+message Video {
+  string   id = 1;
+  string  channelId = 2;
+  string  channelTitle = 3;
+  string  description = 4;
+  string  publishedAt = 5;
+  ThumbnailDetails thumbnailDetails = 6;
+  string title = 7;
+}
+
+message ThumbnailDetails {
+  Thumbnail default = 1;
+  Thumbnail high = 2;
+  Thumbnail maxRes = 3;
+  Thumbnail medium = 4;
+  Thumbnail standard = 5;
+}
+
+message Thumbnail {
+  int64 height = 1;
+  int64 width = 2;
+  string url = 3;
+}
+
+message CronRequest {
+
+}
+
+message CronResponse {
+  string success = 1;
 }
