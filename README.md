@@ -1,10 +1,10 @@
-#Fampay Assignment
+# Fampay Assignment
 
-##Architecture Diagram
+## Architecture Diagram
 ![](https://i.ibb.co/55QqLQH/Architecture-02.png)
 
 
-###Local Setup
+### Local Setup
 
 - make docker-build-api
 - make docker-build-worker
