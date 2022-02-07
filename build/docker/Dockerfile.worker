@@ -1,0 +1,40 @@
+# Stage 1 - Compilation build stage
+######################################
+FROM golang:1.17.6-alpine3.14 as builder
+
+ENV CGO_ENABLED 0
+
+RUN mkdir /src
+WORKDIR /src
+
+RUN apk add --update --no-cache --repository https://dl-4.alpinelinux.org/alpine/latest-stable/community/ git make
+
+RUN ls -l /src
+
+COPY go.mod .
+COPY go.sum .
+
+# Get dependencies using go.mod and go.sum
+RUN go mod download
+
+
+# Copy rest of the source code
+ADD . /src/
+RUN make go-build-worker
+
+# Stage 2 - Binary build stage
+######################################
+FROM alpine:3.14
+
+COPY --from=builder /src/bin/worker /app/
+COPY --from=builder /src/config/ /app/config/
+COPY build/docker/entrypoint.sh /app/
+
+RUN apk add --update --no-cache dumb-init su-exec curl
+
+ENV WORKDIR=/app
+WORKDIR /app
+
+
+RUN chmod +x entrypoint.sh
+ENTRYPOINT ["/app/entrypoint.sh", "worker"]

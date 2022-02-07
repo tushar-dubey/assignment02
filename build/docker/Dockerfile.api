@@ -1,0 +1,67 @@
+# Stage 1 - Generate proto
+###########################
+FROM golang:1.17.6-alpine3.14 as proto-builder
+
+ENV GO111MODULE=on
+
+RUN apk add --update --no-cache --repository https://dl-4.alpinelinux.org/alpine/latest-stable/community/  make git
+
+RUN mkdir -p /src/proto
+WORKDIR /src
+
+# App source code is not required for this stage, only add what's needed
+ADD Makefile /src
+
+ADD buf.gen.yaml /src/
+ADD buf.yaml /src/
+# To fetch all the deps for buf to generate twirp files
+RUN make deps
+COPY go.mod .
+COPY go.sum .
+COPY /proto/fetch_videos.proto ./proto
+RUN make proto-generate
+
+# Stage 2 - Compilation build stage
+######################################
+FROM golang:1.17.6-alpine3.14 as builder
+
+ENV CGO_ENABLED 0
+
+RUN mkdir /src
+WORKDIR /src
+
+RUN apk add --update --no-cache --repository https://dl-4.alpinelinux.org/alpine/latest-stable/community/ git make
+
+# Fetch proto from previous stage
+COPY --from=proto-builder /src/rpc /src/rpc
+
+RUN ls -l /src
+
+COPY go.mod .
+COPY go.sum .
+
+# Get dependencies using go.mod and go.sum
+RUN go mod download
+
+
+# Copy rest of the source code
+ADD . /src/
+RUN make go-build-api
+
+# Stage 3 - Binary build stage
+######################################
+FROM alpine:3.14
+
+COPY --from=builder /src/bin/api /app/
+COPY --from=builder /src/config/ /app/config/
+COPY build/docker/entrypoint.sh /app/
+
+RUN apk add --update --no-cache dumb-init su-exec curl
+
+ENV WORKDIR=/app
+WORKDIR /app
+
+EXPOSE 8080
+
+RUN chmod +x entrypoint.sh
+ENTRYPOINT ["/app/entrypoint.sh", "api"]
