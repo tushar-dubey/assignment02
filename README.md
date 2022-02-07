@@ -8,6 +8,8 @@
 
 - make docker-build-api
 - make docker-build-worker
+- for running the docker containers locally use : sudo docker run --net="host"  assignment02/worker for worker and similarly for api.
+- For running the binaries without docker use the provided commands in makefile and run it locally.
 
 The default config assumes that mongodb is running at localhost:27017 with proper indexing enabled.
 Please follow mongo_setup.txt present in the repository to setup collections and indexes.
