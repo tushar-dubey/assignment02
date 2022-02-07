@@ -1,0 +1,14 @@
+// Run these queries in the mongo shell
+
+//create the default db to be used
+use mgm_labs
+//create the collections to be used
+db.createCollection("videos")
+db.createCollection("apikeys")
+// create text indexes on the title and description field in the videos collection
+db.videos.createIndex(
+   {
+     title: "text",
+     description: "text"
+   }
+ )

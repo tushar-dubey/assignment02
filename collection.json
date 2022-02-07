@@ -1,0 +1,141 @@
+{
+	"info": {
+		"_postman_id": "3d0ed45c-18fa-4db3-a444-ab911ab2cd69",
+		"name": "test local youtube app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8089/twirp/proto.FetchVideos/CronAPI",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/twirp/proto.FetchVideos/CronAPI",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"twirp",
+						"proto.FetchVideos",
+						"CronAPI"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8089/twirp/proto.FetchVideos/Get",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"count\": 10,\n    \"skip\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/twirp/proto.FetchVideos/Get",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"twirp",
+						"proto.FetchVideos",
+						"Get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8089/twirp/proto.FetchVideos/CronAPI",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/twirp/proto.FetchVideos/CronAPI",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"twirp",
+						"proto.FetchVideos",
+						"CronAPI"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8089/twirp/proto.FetchVideos/Search",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"count\": 10,\n    \"skip\": 0,\n    \"query\": \"Ali ve\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/twirp/proto.FetchVideos/Search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"twirp",
+						"proto.FetchVideos",
+						"Search"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
